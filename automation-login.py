@@ -1,71 +1,56 @@
 import unittest
 import time
-from selenium import webdriver
+from selenium import webdriver 
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
-baseUrl = "https://demoqa.com/"
-driverInstall = ChromeDriverManager().install()
+class TestLoginRegister(unittest.TestCase): 
 
-
-class TestLogin(unittest.TestCase):
-
-    def setUp(self):
-        options = webdriver.ChromeOptions()
-        options.add_experimental_option("detach", True)
-        self.browser = webdriver.Chrome(
-            options=options, service=Service(driverInstall))
-        self.browser.maximize_window()
-
-    def test_success_link_button(self):
-        # steps
-        browser = self.browser
-        browser.get(baseUrl + "links")
+    def setUp(self): 
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        
+    def test_Login_Negatif(self): 
+        driver = self.driver
+        driver.get("https://opensource-demo.orangehrmlive.com") # buka situs
+        driver.maximize_window()
         time.sleep(3)
-        browser.find_element(By.ID, "simpleLink").click()
-        time.sleep(5)
-        self.browser.close()
+        driver.find_element(By.ID,"txtUsername").send_keys("Salah") # isi email
+        time.sleep(1)
+        driver.find_element(By.ID,"txtPassword").send_keys("salah") # isi password
+        time.sleep(1)
+        driver.find_element(By.ID,"btnLogin").click()
 
-    def test_success_link_button_new_window(self):
-        # steps
-        browser = self.browser
-        browser.get(baseUrl + "browser-windows")
+        response_message = driver.find_element(By.ID,"spanMessage").text
+        self.assertEqual(response_message, 'Invalid credentials')
+
+    def test_Login_Positif(self): 
+        driver = self.driver
+        driver.get("https://opensource-demo.orangehrmlive.com") # buka situs
+        driver.maximize_window()
         time.sleep(3)
-        browser.find_element(By.ID, "simpleLink").click()
-        time.sleep(5)
-        self.browser.close()
+        driver.find_element(By.ID,"txtUsername").send_keys("Admin") # isi email
+        time.sleep(1)
+        driver.find_element(By.ID,"txtPassword").send_keys("admin123") # isi password
+        time.sleep(1)
+        driver.find_element(By.ID,"btnLogin").click()
 
-    def test_success_link_button_new_window(self):
-        # steps
-        browser = self.browser
-        browser.get(baseUrl + "browser-windows")
+        response_message = driver.find_element(By.ID,"menu_admin_viewAdminModule").text
+        self.assertEqual(response_message, 'Admin')
+
+    def test_Job(self):
+        driver = self.driver
+        driver.get("https://opensource-demo.orangehrmlive.com") # buka situs
+        driver.maximize_window()
         time.sleep(3)
-        browser.find_element(By.ID, "simpleLink").click()
-        time.sleep(5)
-        self.browser.close()
-
-    def test_success_link_button_hover(self):
-        # steps
-        browser = self.browser
-        browser.get(baseUrl + "tool-tips")
+        driver.find_element(By.ID,"menu_admin_viewAdminModule").click()
+        driver.find_element(By.ID,"menu_admin_Job").click()
+        driver.find_element(By.ID,"menu_admin_viewJobTitleList").click()
         time.sleep(3)
-        browser.find_element(By.ID, "toolTipButton").click()
-        time.sleep(5)
-        self.browser.close()
-
-    def test_success_link_button_change_color(self):
-        # steps
-        browser = self.browser
-        browser.get(baseUrl + "dynamic-properties")
+        driver.find_element(By.ID,"btnAdd").click()
         time.sleep(3)
-        browser.find_element(By.ID, "colorChange").click()
-        time.sleep(5)
-        self.browser.close()
+        driver.find_element(By.ID,"jobTitle_jobTitle").send_keys("jobjobjobjob")
 
-    def tearDown(self):
-        self.browser.close()
-
-
-if __name__ == "__main__":
-    unittest.main()
+unittest.main()
