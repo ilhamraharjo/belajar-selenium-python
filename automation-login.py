@@ -52,7 +52,7 @@ class TestLogin(unittest.TestCase):
         browser = self.browser #buka web browser
         browser.get("http://barru.pythonanywhere.com/daftar") # buka situs
         time.sleep(3)
-        browser.find_element(By.ID,"email").send_keys("admin@gmail.com") # isi email
+        browser.find_element(By.ID,"email").send_keys("lham@gmail.com") # isi email
         time.sleep(1)
         browser.find_element(By.ID,"password").send_keys("") # isi password
         time.sleep(1)
