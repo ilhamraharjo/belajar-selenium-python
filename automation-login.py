@@ -35,7 +35,7 @@ class TestLogin(unittest.TestCase):
         time.sleep(3)
         browser.find_element(By.ID,"email").send_keys("") # isi email
         time.sleep(1)
-        browser.find_element(By.ID,"password").send_keys("admin123") # isi password
+        browser.find_element(By.ID,"password").send_keys("ilham123") # isi password
         time.sleep(1)
         browser.find_element(By.ID,"signin_login").click() # klik tombol sign in
         time.sleep(1)
