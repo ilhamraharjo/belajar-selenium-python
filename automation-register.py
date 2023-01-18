@@ -9,7 +9,7 @@ class TestLoginRegister(unittest.TestCase):
     def setUp(self): 
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
         
-    def test_Failed_Register_with_empty_email(self): 
+    def test_failed_register_with_empty_email(self): 
         driver = self.driver
         driver.get("http://barru.pythonanywhere.com/daftar") # buka situs
         driver.maximize_window()
@@ -29,7 +29,7 @@ class TestLoginRegister(unittest.TestCase):
         self.assertIn('Oops...', response_data)
         self.assertEqual(response_message, 'Gagal Register!')
 
-    def test_Success_Register(self): 
+    def test_success_register(self): 
         driver = self.driver
         driver.get("http://barru.pythonanywhere.com/daftar") # buka situs
         driver.maximize_window()
