@@ -13,12 +13,13 @@ class TestLoginRegister(unittest.TestCase):
         driver = self.driver
         driver.get("http://barru.pythonanywhere.com/daftar") # buka situs
         driver.maximize_window()
+        driver.find_element(By.ID,"signUp").click()
         time.sleep(3)
         driver.find_element(By.ID,"name_register").send_keys("admin") # isi username
         time.sleep(1)
         driver.find_element(By.ID,"email_register").send_keys("") # isi email
         time.sleep(1)
-         driver.find_element(By.ID,"password_register").send_keys("admin123") # isi password
+        driver.find_element(By.ID,"password_register").send_keys("admin123") # isi password
         time.sleep(1)
         driver.find_element(By.ID,"signup_register").click()
 
@@ -33,12 +34,13 @@ class TestLoginRegister(unittest.TestCase):
         driver = self.driver
         driver.get("http://barru.pythonanywhere.com/daftar") # buka situs
         driver.maximize_window()
+        driver.find_element(By.ID,"signUp").click()
         time.sleep(3)
-        driver.find_element(By.ID,"name_register").send_keys("admin") # isi username
+        driver.find_element(By.ID,"name_register").send_keys("ilham") # isi username
         time.sleep(1)
-        driver.find_element(By.ID,"email_register").send_keys("admin@gmail.com") # isi email
+        driver.find_element(By.ID,"email_register").send_keys("ilham@gmail.com") # isi email
         time.sleep(1)
-        driver.find_element(By.ID,"password_register").send_keys("admin123") # isi password
+        driver.find_element(By.ID,"password_register").send_keys("ilham123") # isi password
         time.sleep(1)
         driver.find_element(By.ID,"signup_register").click()
 
@@ -46,8 +48,8 @@ class TestLoginRegister(unittest.TestCase):
         response_data = browser.find_element(By.ID,"swal2-title").text
         response_message = browser.find_element(By.ID,"swal2-content").text
 
-        self.assertIn('Oops...', response_data)
-        self.assertEqual(response_message, 'Gagal Register!')
+        self.assertIn('berhasil', response_data)
+        self.assertEqual(response_message, 'created user!')
 
 
 unittest.main()
